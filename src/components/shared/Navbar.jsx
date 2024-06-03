@@ -24,9 +24,9 @@ const Navbar = () => {
                     </div>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link to="/" className="text-green-600 font-semibold">Home</Link></li>
-                        <li><Link to="/all_blog" className="text-green-600 font-semibold">All Blog</Link></li>
-                        <li><Link to="/news" className="text-green-600 font-semibold">News</Link></li>
+                        <li><Link to="/all_blog" className="text-green-600 font-semibold">All Blogs</Link></li>
                         <li><Link to="/about" className="text-green-600 font-semibold">About</Link></li>
+                        <li><Link to="/contact" className="text-green-600 font-semibold">Contact</Link></li>
                         {user && <li><Link to="/dashboard" className="text-green-600 font-semibold">Dashboard</Link></li>}
 
                     </ul>
@@ -37,8 +37,8 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal px-1">
                     <li><Link to="/" className="text-green-600 font-semibold">Home</Link></li>
                     <li><Link to="/all_blog" className="text-green-600 font-semibold">All Blog</Link></li>
-                    <li><Link to="/news" className="text-green-600 font-semibold">News</Link></li>
                     <li><Link to="/about" className="text-green-600 font-semibold">About</Link></li>
+                    <li><Link to="/contact" className="text-green-600 font-semibold">Contact</Link></li>
                     {user && <li><Link to="/dashboard" className="text-green-600 font-semibold">Dashboard</Link></li>}
                 </ul>
             </div>

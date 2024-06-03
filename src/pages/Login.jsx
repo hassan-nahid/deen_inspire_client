@@ -3,6 +3,7 @@ import GoogleLogin from "../auth/GoogleLogin";
 import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/firebase.config";
 import { useEffect } from "react";
+import GithubLogin from "../auth/GithubLogin";
 
 
 const Login = () => {
@@ -63,6 +64,7 @@ const Login = () => {
                         </div>
                     </form>
                     <GoogleLogin/>
+                    <GithubLogin/>
                 </div>
             </div>
         </div>

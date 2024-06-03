@@ -2,7 +2,7 @@
 const Accordion = () => {
     return (
         <div className="flex flex-col justify-center items-center my-8">
-            <div className="text-center text-3xl font-bold my-8">FAQ</div>
+            <div className="text-center text-3xl font-bold my-8 text-green-600">FAQ</div>
             <div className="collapse collapse-arrow bg-base-200">
                 <input type="radio" name="my-accordion-2" defaultChecked />
                 <div className="collapse-title text-xl font-medium">

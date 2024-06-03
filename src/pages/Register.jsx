@@ -3,6 +3,7 @@ import GoogleLogin from "../auth/GoogleLogin";
 import { useAuthState, useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../firebase/firebase.config";
 import { useEffect, useState } from "react";
+import GithubLogin from "../auth/GithubLogin";
 
 const Register = () => {
     const location = useLocation()
@@ -77,6 +78,7 @@ const Register = () => {
                         </div>
                     </form>
                     <GoogleLogin />
+                    <GithubLogin/>
                 </div>
             </div>
         </div>

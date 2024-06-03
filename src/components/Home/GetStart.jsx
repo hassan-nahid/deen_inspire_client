@@ -1,18 +1,19 @@
+import { Link } from "react-router-dom";
 
 const GetStart = () => {
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
-            <div className="mt-[-600px]">
-                <h1 className="text-2xl font-bold ">Get Start</h1>
-                <div className="divider bg-black mt-[2px]"></div>
+            <div className="mt-[-570px]">
+                <h1 className="text-2xl font-bold text-green-600">Get Start</h1>
+                <div className="divider bg-green-600 mt-[0px]"></div>
             </div>
                 <div className="hero-content flex-col lg:flex-row">
                     <div className="w-full flex flex-col gap-5">
                         <h3 className="text-xl font-bold">How to create a blog for free</h3>
                         <h5 className="text-xl font-semibold">Follow these 5 steps to start building your blog today.</h5>
                         <div>
-                            <button className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Start Blog</button>
+                            <Link to="/login" className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Start Blog</Link>
                         </div>
                     </div>
                     <div className="flex flex-col gap-2">

@@ -1,0 +1,172 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "The Importance of Salah",
+      "author": "Imam Ahmed",
+      "content": "Salah is one of the five pillars of Islam. It is a form of worship that is obligatory for every Muslim...",
+      "date": "2023-06-01",
+      "tags": [
+        "Salah",
+        "Worship",
+        "Pillars of Islam"
+      ],
+      "category": "Islamic Practices",
+      "picture": "https://img.freepik.com/premium-photo/ornamental-arabic-lantern-with-burning-candle-glowing-night-glittering-golden-bokeh-lights_597582-318.jpg?size=338&ext=jpg&ga=GA1.1.1518270500.1717372800&semt=sph",
+      "comments": [
+        {
+          "user": "Ayesha Khan",
+          "comment": "This is a very insightful post! JazakAllah khair.",
+          "date": "2023-06-02"
+        },
+        {
+          "user": "Mohammed Ali",
+          "comment": "I found this very helpful. Thanks for sharing.",
+          "date": "2023-06-03"
+        },
+        {
+          "user": "Hassan Nahid",
+          "comment": "good",
+          "date": "2024-06-03T18:56:24.181Z"
+        },
+        {
+          "user": "Hassan Nahid",
+          "comment": "bad",
+          "date": "2024-06-03T18:56:27.179Z"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Understanding the Quran",
+      "author": "Sheikh Ibrahim",
+      "content": "The Quran is the holy book of Islam. It is the word of Allah revealed to Prophet Muhammad (PBUH)...",
+      "date": "2023-05-25",
+      "tags": [
+        "Quran",
+        "Holy Book",
+        "Revelation"
+      ],
+      "category": "Islamic Teachings",
+      "picture": "https://img.freepik.com/premium-photo/ornamental-arabic-lantern-with-burning-candle-glowing-night-glittering-golden-bokeh-lights_597582-318.jpg?size=338&ext=jpg&ga=GA1.1.1518270500.1717372800&semt=sph",
+      "comments": [
+        {
+          "user": "Fatima Zahra",
+          "comment": "MashAllah, beautifully explained.",
+          "date": "2023-05-26"
+        },
+        {
+          "user": "Hassan Nahid",
+          "comment": "dsfas",
+          "date": "2024-06-03T18:55:29.141Z"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "The Life of Prophet Muhammad (PBUH)",
+      "author": "Dr. Amina Siddiq",
+      "content": "Prophet Muhammad (PBUH) is the final messenger of Allah. His life and teachings are a source of inspiration for all Muslims...",
+      "date": "2023-04-10",
+      "tags": [
+        "Prophet Muhammad",
+        "Seerah",
+        "Inspiration"
+      ],
+      "category": "Islamic History",
+      "picture": "https://img.freepik.com/premium-photo/ornamental-arabic-lantern-with-burning-candle-glowing-night-glittering-golden-bokeh-lights_597582-318.jpg?size=338&ext=jpg&ga=GA1.1.1518270500.1717372800&semt=sph",
+      "comments": [
+        {
+          "user": "Omar Farooq",
+          "comment": "This article gave me a deeper understanding of the Prophet's life.",
+          "date": "2023-04-11"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "The Benefits of Fasting in Ramadan",
+      "author": "Imam Ahmed",
+      "content": "Fasting during Ramadan is one of the five pillars of Islam. It brings numerous spiritual and health benefits...",
+      "date": "2023-03-20",
+      "tags": [
+        "Ramadan",
+        "Fasting",
+        "Spirituality"
+      ],
+      "category": "Islamic Practices",
+      "picture": "https://img.freepik.com/premium-photo/ornamental-arabic-lantern-with-burning-candle-glowing-night-glittering-golden-bokeh-lights_597582-318.jpg?size=338&ext=jpg&ga=GA1.1.1518270500.1717372800&semt=sph",
+      "comments": [
+        {
+          "user": "Layla Hussein",
+          "comment": "Very informative! I learned a lot about the benefits of fasting.",
+          "date": "2023-03-21"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Halal Living: What It Means and How to Practice It",
+      "author": "Sheikh Ibrahim",
+      "content": "Living a halal life means following the dietary and ethical guidelines set by Islam. This includes eating halal food and living by Islamic principles...",
+      "date": "2023-02-15",
+      "tags": [
+        "Halal",
+        "Lifestyle",
+        "Ethics"
+      ],
+      "category": "Islamic Lifestyle",
+      "picture": "https://img.freepik.com/premium-photo/ornamental-arabic-lantern-with-burning-candle-glowing-night-glittering-golden-bokeh-lights_597582-318.jpg?size=338&ext=jpg&ga=GA1.1.1518270500.1717372800&semt=sph",
+      "comments": [
+        {
+          "user": "Zainab Malik",
+          "comment": "Great tips on living a halal lifestyle!",
+          "date": "2023-02-16"
+        },
+        {
+          "user": "Usman Raza",
+          "comment": "This was very helpful. Thank you!",
+          "date": "2023-02-17"
+        }
+      ]
+    }
+  ],
+  "authors": [
+    {
+      "id": "1",
+      "name": "Imam Ahmed",
+      "bio": "Imam Ahmed is a respected Islamic scholar with over 20 years of experience in teaching and preaching Islam.",
+      "profilePicture": "https://example.com/images/imam_ahmed.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Sheikh Ibrahim",
+      "bio": "Sheikh Ibrahim is an expert in Quranic studies and has written numerous articles and books on the subject.",
+      "profilePicture": "https://example.com/images/sheikh_ibrahim.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Dr. Amina Siddiq",
+      "bio": "Dr. Amina Siddiq is a historian specializing in Islamic history and the life of Prophet Muhammad (PBUH).",
+      "profilePicture": "https://example.com/images/dr_amina_siddiq.jpg"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Islamic Practices"
+    },
+    {
+      "id": "2",
+      "name": "Islamic Teachings"
+    },
+    {
+      "id": "3",
+      "name": "Islamic History"
+    },
+    {
+      "id": "4",
+      "name": "Islamic Lifestyle"
+    }
+  ]
+}

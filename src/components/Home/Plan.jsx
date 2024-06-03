@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Plan = () => {
     return (
@@ -9,7 +10,7 @@ const Plan = () => {
                         <h1 className="text-3xl font-bold">
                             Plan ahead with built-in analytics</h1>
                         <p className="py-6">Get insights from analytics reports, like which content best engages your audience, so you can strategically plan for the future.</p>
-                        <button className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Start Blogging</button>
+                        <Link to={"/login"} className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Start Blogging</Link>
                     </div>
                 </div>
             </div>

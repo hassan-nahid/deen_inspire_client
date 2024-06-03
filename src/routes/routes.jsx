@@ -11,6 +11,9 @@ import Contact from "../pages/Contact";
 import ErrorPage from "../pages/ErrorPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import CardDetails from "../components/AllBlogs/CardDetails";
+import ProfilePage from "../pages/Profile/ProfilePage";
+import AddPost from "../pages/Dashboard/AddPost";
+import ManagePost from "../layouts/ManagePost";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +44,10 @@ export const router = createBrowserRouter([
                 element: <Contact />,
             },
             {
+                path: '/profile_page',
+                element: <PrivateRoute><ProfilePage /></PrivateRoute>,
+            },
+            {
                 path: '/login',
                 element: <Login />,
             },
@@ -55,9 +62,17 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
             {
-                path: "",
-                element: <Dashboard />
-            }
+                index:true,
+                element: <PrivateRoute><Dashboard /></PrivateRoute>,
+            },
+            {
+                path: "/dashboard/add_post",
+                element: <PrivateRoute>< AddPost/></PrivateRoute>,
+            },
+            {
+                path: "/dashboard/manage_post",
+                element: <PrivateRoute><ManagePost/></PrivateRoute>,
+            },
         ]
     }
 ]);

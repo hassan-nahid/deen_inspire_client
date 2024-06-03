@@ -1,6 +1,8 @@
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Link, Outlet } from "react-router-dom";
 import auth from "../firebase/firebase.config";
+import { FaHome } from "react-icons/fa";
+import { MdOutlinePostAdd, MdOutlineManageSearch } from "react-icons/md";
 
 const DashboardLayout = () => {
 
@@ -28,20 +30,19 @@ const DashboardLayout = () => {
                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content flex flex-col justify-between">
                     {/* Sidebar content here */}
                     <div>
-                        <li><Link className="text-green-600 font-semibold" to={"/"}>Home</Link></li>
-                        <li><Link className="text-green-600 font-semibold" to={"/about"}>About</Link></li>
+                        <li><Link className="text-green-600 font-semibold" to={"/"}><FaHome />Main Home</Link></li>
+                        <li><Link className="text-green-600 font-semibold" to={"/dashboard/add_post"}><MdOutlinePostAdd />Add Post</Link></li>
+                        <li><Link className="text-green-600 font-semibold" to={"/dashboard/manage_post"}><MdOutlineManageSearch />Manage Post</Link></li>
                     </div>
                     <div className="flex gap-1">
                         {user && user.photoURL === null ?
-                            <div className="avatar placeholder">
-                                <div className="bg-neutral text-neutral-content rounded-full w-12">
-                                    <span title={user?.email}>{user?.email}</span>
-                                </div>
-                            </div> :
-                            <div className="w-12">
+                            <Link to="/profile_page" className="w-12">
+                                <img title={user?.email} className="rounded-full" src={"https://i.ibb.co/kg6fMYC/placeholder.jpg"} />
+                            </Link> :
+                            <Link to="/profile_page" className="w-12">
                                 <img title={user?.email} className="rounded-full" src={user?.photoURL} />
-                            </div>}
-                        {user ? <button onClick={handleLogout} className="btn bg-green-600 w-[50%] hover:bg-green-400 text-white font-semibold">Logout</button> :
+                            </Link>}
+                        {user ? <button onClick={handleLogout} className="btn bg-green-600 w-[80%] hover:bg-green-400 text-white font-semibold">Logout</button> :
                             <Link to="/login" className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Login</Link>}
                     </div>
                 </ul>

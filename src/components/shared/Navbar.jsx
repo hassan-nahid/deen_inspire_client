@@ -3,8 +3,8 @@ import auth from "../../firebase/firebase.config";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 const Navbar = () => {
+    // const [user] = useAuthState(auth);
     const [user] = useAuthState(auth);
-
     const [signOut] = useSignOut(auth);
 
     const handleLogout = async () => {
@@ -44,14 +44,12 @@ const Navbar = () => {
             </div>
             <div className="navbar-end flex gap-2">
                 {user && user.photoURL === null ?
-                    <div className="avatar placeholder">
-                        <div className="bg-neutral text-neutral-content rounded-full w-12">
-                            <span title={user?.email}>{user?.email}</span>
-                        </div>
-                    </div> :
-                    <div className="w-12">
+                    <Link to="/profile_page" className="w-12">
+                        <img title={user?.email} className="rounded-full" src={"https://i.ibb.co/kg6fMYC/placeholder.jpg"} />
+                    </Link> :
+                    <Link to="/profile_page" className="w-12">
                         <img title={user?.email} className="rounded-full" src={user?.photoURL} />
-                    </div>}
+                    </Link>}
                 {user ? <button onClick={handleLogout} className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Logout</button> :
                     <Link to="/login" className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Login</Link>}
             </div>

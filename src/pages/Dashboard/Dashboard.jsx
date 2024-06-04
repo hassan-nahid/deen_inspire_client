@@ -1,5 +1,6 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link } from 'react-router-dom';
 import auth from '../../firebase/firebase.config';
 import Loading from '../../components/Loading';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -17,10 +18,15 @@ const Dashboard = () => {
                 const userPosts = data.filter(post => post?.author === user?.displayName || post?.email === user?.email);
                 setPosts(userPosts);
                 // Prepare data for the chart
-                const dataForChart = userPosts.map(post => ({
-                    date: post.date,
-                    posts: userPosts.filter(p => p.date === post.date).length,
-                }));
+                const dataForChart = userPosts.reduce((acc, post) => {
+                    const existingDate = acc.find(p => p.date === post.date);
+                    if (existingDate) {
+                        existingDate.posts += 1;
+                    } else {
+                        acc.push({ date: post.date, posts: 1 });
+                    }
+                    return acc;
+                }, []);
                 setChartData(dataForChart);
             }
         } catch (error) {
@@ -47,9 +53,11 @@ const Dashboard = () => {
                 <div className="card bg-white shadow-xl p-4">
                     <div className="flex items-center space-x-4">
                         <img src={user?.photoURL || "https://via.placeholder.com/150"} alt="Profile" className="w-16 h-16 rounded-full" />
-                        <div>
+                        <div className='flex flex-col gap-2'>
                             <h2 className="text-xl font-bold">{user?.displayName}</h2>
                             <p>{user?.email}</p>
+                            <p>{user?.displayName}</p>
+                            <Link to="/profile_page" className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Edit Profile</Link>
                         </div>
                     </div>
                 </div>
@@ -70,11 +78,11 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {posts.map(post => (
                     <div key={post._id} className="card bg-white shadow-xl">
-                        <figure><img src={post.picture} alt={post.title} className="w-full h-48 object-cover" /></figure>
+                        <figure><img src={post?.picture} alt={post?.title} className="w-full h-48 object-cover" /></figure>
                         <div className="card-body p-4">
-                            <h2 className="card-title text-lg font-bold">{post.title}</h2>
-                            <p className="text-sm text-gray-500">by {post.author} on {post.date}</p>
-                            <p className="mt-2 text-gray-700">{post.content}</p>
+                            <h2 className="card-title text-lg font-bold">{post?.title.split(' ').slice(0, 3).join(' ')}...</h2>
+                            <p className="text-sm text-gray-500">by {post?.author} on {post?.date}</p>
+                            <p className="mt-2 text-gray-700">{post?.content.split(' ').slice(0, 10).join(' ')}...</p>
                         </div>
                     </div>
                 ))}

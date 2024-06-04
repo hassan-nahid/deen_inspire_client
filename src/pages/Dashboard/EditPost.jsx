@@ -1,88 +1,70 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase/firebase.config";
 import Swal from "sweetalert2";
 
-const AddPost = () => {
+const EditPost = () => {
+    const postData = useLoaderData();
     const [user] = useAuthState(auth);
-    const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState(user?.displayName || ""); // Pre-fill with user's display name if available
-    const [content, setContent] = useState("");
-    const [date, setDate] = useState("");
-    const [tags, setTags] = useState("");
-    const [category, setCategory] = useState("");
-    const [picture, setPicture] = useState("");
-    const [comments, setComments] = useState([]);
-    const [email, setEmail] = useState(user?.email || ""); // Pre-fill with user's email if available
+    const [title, setTitle] = useState(postData?.title || "");
+    const [author, setAuthor] = useState(postData?.author || user?.displayName || "");
+    const [content, setContent] = useState(postData?.content || "");
+    const [date, setDate] = useState(postData?.date || "");
+    const [tags, setTags] = useState(postData?.tags?.join(", ") || "");
+    const [category, setCategory] = useState(postData?.category || "");
+    const [picture, setPicture] = useState(postData?.picture || "");
 
-    useEffect(() => {
-        if (user) {
-            setAuthor(user.displayName || "");
-            setEmail(user.email || "");
-        }
-    }, [user]);
-
-    const handleSubmit = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
-        const newPost = {
-            title,
-            author,
-            content,
-            date,
-            tags: tags.split(",").map(tag => tag.trim()),
-            category,
-            picture,
-            comments,
-            email,
+        const updatedPost = {
+            ...(title !== postData?.title && { title }),
+            ...(author !== postData?.author && { author }),
+            ...(content !== postData?.content && { content }),
+            ...(date !== postData?.date && { date }),
+            ...(tags !== postData?.tags?.join(", ") && { tags: tags.split(",").map(tag => tag.trim()) }),
+            ...(category !== postData?.category && { category }),
+            ...(picture !== postData?.picture && { picture }),
         };
-    
+
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
-                method: 'POST',
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/edit_post/${postData._id}`, {
+                method: 'PATCH',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newPost)
+                body: JSON.stringify(updatedPost),
             });
+
             if (response.ok) {
                 Swal.fire(
                     'Success!',
-                    'Post added successfully!',
+                    'Post updated successfully!',
                     'success'
                 );
-                // Optionally reset form
-                setTitle("");
-                setAuthor(user?.displayName || "");
-                setContent("");
-                setDate("");
-                setTags("");
-                setCategory("");
-                setPicture("");
-                setComments([]);
-                setEmail(user?.email || "");
+                // Optionally clear form fields
             } else {
                 Swal.fire(
                     'Error!',
-                    'Failed to add post.',
+                    'Failed to update post.',
                     'error'
                 );
             }
         } catch (error) {
-            console.error("Error adding post:", error);
+            console.error("Error updating post:", error);
             Swal.fire(
                 'Error!',
-                'An error occurred while adding the post.',
+                'An error occurred while updating the post.',
                 'error'
             );
         }
     };
-    
 
     return (
         <div className="container mx-auto p-6">
             <div className="card w-full lg:w-1/2 mx-auto bg-base-100 shadow-xl p-6">
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Add a New Post</h2>
-                <form onSubmit={handleSubmit}>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-4">Edit Post</h2>
+                <form onSubmit={handleUpdate}>
                     <div className="mb-4">
                         <label className="label">Title</label>
                         <input
@@ -153,21 +135,11 @@ const AddPost = () => {
                             required
                         />
                     </div>
-                    <div className="mb-4">
-                        <label className="label">Email</label>
-                        <input
-                            type="email"
-                            className="input input-bordered w-full"
-                            value={email}
-                            readOnly
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn bg-green-600 hover:bg-green-400 text-white font-semibold w-full">Add Post</button>
+                    <button type="submit" className="btn bg-green-600 hover:bg-green-400 text-white font-semibold w-full">Update Post</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddPost;
+export default EditPost;

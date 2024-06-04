@@ -7,7 +7,7 @@ const AllBlog = () => {
     const [filteredPosts, setFilteredPosts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/posts")
+        fetch(`${import.meta.env.VITE_API_URL}/posts`)
             .then(res => res.json())
             .then(data => {
                 setPosts(data);
@@ -45,7 +45,7 @@ const AllBlog = () => {
                 </div>
                 <div className="flex flex-col gap-3">
                     {filteredPosts.length > 0 ? (
-                        filteredPosts.map(post => <AllBlogCard key={post.id} post={post} />)
+                        filteredPosts.map(post => <AllBlogCard key={post._id} post={post} />)
                     ) : (
                         <p>No posts found</p>
                     )}

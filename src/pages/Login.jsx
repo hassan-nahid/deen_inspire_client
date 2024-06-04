@@ -1,41 +1,51 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import GoogleLogin from "../auth/GoogleLogin";
-import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import auth from "../firebase/firebase.config";
 import { useEffect } from "react";
+import { useAuthState, useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import GoogleLogin from "../auth/GoogleLogin";
 import GithubLogin from "../auth/GithubLogin";
+import auth from "../firebase/firebase.config";
 
+const MySwal = withReactContent(Swal);
 
 const Login = () => {
     const [user] = useAuthState(auth);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [signInWithEmailAndPassword, , , error] = useSignInWithEmailAndPassword(auth);
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
 
-    const [
-        signInWithEmailAndPassword,
-        ,
-        ,
-        error,
-      ] = useSignInWithEmailAndPassword(auth);
-      const location = useLocation()
-      const from = location?.state?.from?.pathname || "/"
-
-      const handleLogin = (e) => {
-        e.preventDefault()
+    const handleLogin = (e) => {
+        e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        signInWithEmailAndPassword(email,password)
-      }
+        signInWithEmailAndPassword(email, password).then((userCredential) => {
+            if (userCredential) {
+                toast.success('Login successful!');
+            }
+        })
+    };
 
-      useEffect(() =>{
-        if(user){
-            return navigate(from,{replace:true})
+    useEffect(() => {
+        if (user) {
+            MySwal.fire({
+                title: 'Login Successful!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                navigate(from, { replace: true });
+            });
         }
-      },[navigate,user,from])
+    }, [user, navigate, from]);
 
     return (
         <div className="hero min-h-screen bg-base-200">
+            <Toaster />
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold text-green-600">Login now!</h1>
@@ -63,8 +73,8 @@ const Login = () => {
                             <button className="btn bg-green-600 hover:bg-green-400 text-white font-semibold">Login</button>
                         </div>
                     </form>
-                    <GoogleLogin/>
-                    <GithubLogin/>
+                    <GoogleLogin />
+                    <GithubLogin />
                 </div>
             </div>
         </div>

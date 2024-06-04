@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 const NewBlogCard = ({ post }) => {
     // eslint-disable-next-line react/prop-types
-    const {id, picture, title, content, author, date, tags } = post;
+    const {_id, picture, title, content, author, date, tags } = post;
 
     const truncateText = (text, limit) => {
         if (text.length > limit) {
@@ -35,7 +35,7 @@ const NewBlogCard = ({ post }) => {
                     )}
                 </div>
                 <div className="my-3">
-                    <Link to={`/card_details/${id}`} className="btn bg-green-600 hover:bg-green-400 border-none text-white font-semibold">See More</Link>
+                    <Link to={`/card_details/${_id}`} className="btn bg-green-600 hover:bg-green-400 border-none text-white font-semibold">See More</Link>
                 </div>
             </div>
         </div>

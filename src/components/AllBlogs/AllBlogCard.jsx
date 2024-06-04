@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 const AllBlogCard = ({ post }) => {
     // eslint-disable-next-line react/prop-types
-    const {id, picture, title, content, category, tags, author, date } = post;
+    const {_id, picture, title, content, category, tags, author, date } = post;
 
     // Helper function to truncate text
     const truncateText = (text, limit) => {
@@ -37,7 +37,7 @@ const AllBlogCard = ({ post }) => {
                             <h4 className="text-xs text-gray-500">{new Date(date).toLocaleDateString()}</h4>
                         </div>
                         <div className="card-actions">
-                            <Link to={`/card_details/${id}`} className="btn bg-green-600 hover:bg-green-400 border-none text-white font-semibold">
+                            <Link to={`/card_details/${_id}`} className="btn bg-green-600 hover:bg-green-400 border-none text-white font-semibold">
                                 Read More
                             </Link>
                         </div>

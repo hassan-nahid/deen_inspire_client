@@ -6,7 +6,7 @@ const NewBlog = ({ limit }) => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/posts')
+        fetch(`${import.meta.env.VITE_API_URL}/posts`)
             .then(res => res.json())
             .then(data => {
                 // Sort posts by date in descending order
@@ -22,7 +22,7 @@ const NewBlog = ({ limit }) => {
             <div className="flex justify-center items-center mx-3">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {posts.map(post => (
-                        <NewBlogCard key={post.id} post={post} />
+                        <NewBlogCard key={post._id} post={post} />
                     ))}
                 </div>
             </div>

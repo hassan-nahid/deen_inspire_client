@@ -2,6 +2,8 @@ import { useState } from "react";
 import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase/firebase.config";
+import toast from "react-hot-toast";
+import Loading from "../../components/Loading";
 
 const ProfilePage = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -20,11 +22,11 @@ const ProfilePage = () => {
                 if (user.email !== email) {
                     await updateEmail(user, email);
                 }
-                alert("Profile updated successfully!");
+                toast.success("Profile updated successfully!");
             }
         } catch (error) {
             console.error("Error updating profile:", error);
-            alert("Failed to update profile.");
+            toast.error("Failed to update profile.");
         }
     };
 
@@ -32,16 +34,16 @@ const ProfilePage = () => {
         try {
             if (user) {
                 await updatePassword(user, newPassword);
-                alert("Password updated successfully!");
+                toast.success("Password updated successfully!");
             }
         } catch (error) {
             console.error("Error updating password:", error);
-            alert("Failed to update password.");
+            toast.error("Failed to update password.");
         }
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading/>
     }
 
     if (error) {

@@ -2,29 +2,41 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useLoaderData } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
+import toast from "react-hot-toast";
 
 const CardDetails = () => {
     const cardData = useLoaderData();
     const [newComment, setNewComment] = useState("");
-    const [comments, setComments] = useState(cardData?.comments);
+    const [comments, setComments] = useState(cardData?.comments ?? []);
     const [user] = useAuthState(auth);
 
-    const handleCommentSubmit = async () => {
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+    
         if (newComment.trim() !== "") {
             try {
-                const response = await fetch(`http://localhost:3000/posts/${cardData?.id}`, {
+                const newCommentData = { user: user?.displayName || "Guest", comment: newComment, date: new Date().toISOString() };
+                const updatedComments = [...comments, newCommentData]; // Update UI optimistically
+    
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${cardData?._id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        comments: [...comments, { user: user?.displayName || "Guest", comment: newComment, date: new Date().toISOString() }]
+                        comments: updatedComments // Send all comments including the new one to the server
                     })
                 });
+    
                 if (response.ok) {
-                    const data = await response.json();
-                    setComments(data?.comments);
+                    setComments(updatedComments); // Update UI with the new comment
                     setNewComment("");
+    
+                    // Show a success toast
+                    toast.success('Comment posted successfully!', {
+                        duration: 4000, 
+                        position: 'top-center', 
+                    });
                 } else {
                     console.error('Failed to add comment:', response.statusText);
                 }
@@ -33,6 +45,8 @@ const CardDetails = () => {
             }
         }
     };
+    
+    
 
     return (
         <div className="container mx-auto p-6">
@@ -59,18 +73,21 @@ const CardDetails = () => {
                     </div>
                     <div className="mt-6">
                         <h3 className="text-lg font-semibold text-gray-800 mb-2">Post a Comment</h3>
-                        <textarea
-                            className="w-full h-24 p-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:border-blue-500"
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Write your comment here..."
-                        ></textarea>
-                        <button
-                            className="mt-2 btn bg-green-600 hover:bg-green-400 text-white font-semibold"
-                            onClick={handleCommentSubmit}
-                        >
-                            Post Comment
-                        </button>
+                        <form onSubmit={handleCommentSubmit}>
+                            <textarea
+                                className="w-full h-24 p-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:border-blue-500"
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Write your comment here..."
+                                required
+                            ></textarea>
+                            <button
+                                type="submit"
+                                className="mt-2 btn bg-green-600 hover:bg-green-400 text-white font-semibold"
+                            >
+                                Post Comment
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

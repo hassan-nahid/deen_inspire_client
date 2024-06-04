@@ -13,7 +13,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import CardDetails from "../components/AllBlogs/CardDetails";
 import ProfilePage from "../pages/Profile/ProfilePage";
 import AddPost from "../pages/Dashboard/AddPost";
-import ManagePost from "../layouts/ManagePost";
+import ManagePost from "../pages/Dashboard/ManagePost";
+import EditPost from "../pages/Dashboard/EditPost";
 
 export const router = createBrowserRouter([
     {
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
                 path: '/card_details/:id',
                 element: <CardDetails />,
                 loader: ({ params }) =>
-                    fetch( `http://localhost:3000/posts/${params.id}`),
+                    fetch(`${import.meta.env.VITE_API_URL}/posts/${params.id}`),
             },
             {
                 path: '/about',
@@ -62,16 +63,22 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
             {
-                index:true,
+                index: true,
                 element: <PrivateRoute><Dashboard /></PrivateRoute>,
             },
             {
                 path: "/dashboard/add_post",
-                element: <PrivateRoute>< AddPost/></PrivateRoute>,
+                element: <PrivateRoute>< AddPost /></PrivateRoute>,
             },
             {
                 path: "/dashboard/manage_post",
-                element: <PrivateRoute><ManagePost/></PrivateRoute>,
+                element: <PrivateRoute><ManagePost /></PrivateRoute>,
+            },
+            {
+                path: "/dashboard/edit_post/:id",
+                element: <PrivateRoute><EditPost /></PrivateRoute>,
+                loader: ({ params }) =>
+                    fetch(`${import.meta.env.VITE_API_URL}/posts/${params.id}`),
             },
         ]
     }

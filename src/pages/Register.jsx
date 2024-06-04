@@ -4,12 +4,17 @@ import { useAuthState, useCreateUserWithEmailAndPassword } from "react-firebase-
 import auth from "../firebase/firebase.config";
 import { useEffect, useState } from "react";
 import GithubLogin from "../auth/GithubLogin";
+import { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 const Register = () => {
-    const location = useLocation()
-    const from = location?.state?.from?.pathname || "/"
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
     const [user] = useAuthState(auth);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [
         createUserWithEmailAndPassword,
@@ -17,10 +22,10 @@ const Register = () => {
         ,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    const [passMatch, setPassMatch] = useState(false)
+    const [passMatch, setPassMatch] = useState(false);
 
     const handleRegister = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -28,21 +33,32 @@ const Register = () => {
 
         if (password === confirm_password) {
             createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    if (userCredential) {
+                        MySwal.fire({
+                            title: 'Registration Successful!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                })
+        } else {
+            setPassMatch(true);
+            return;
         }
-        else {
-            setPassMatch(true)
-            return
-        }
-        setPassMatch(false)
-    }
+        setPassMatch(false);
+    };
+
     useEffect(() => {
         if (user) {
-            navigate(from, { replace: true })
+            navigate(from, { replace: true });
         }
-    }, [from, navigate, user])
+    }, [from, navigate, user]);
 
     return (
         <div className="hero min-h-screen bg-base-200">
+            <Toaster />
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold text-green-600">Register now!</h1>
@@ -68,9 +84,9 @@ const Register = () => {
                             </label>
                             <input type="password" name="confirm_password" placeholder="confirm password" className="input input-bordered" required />
                         </div>
-                        {passMatch && <div><p className="text-red-500">Password not match</p></div>}
+                        {passMatch && <div><p className="text-red-500">Password does not match</p></div>}
                         <label className="label">
-                            <p>Already have account?<Link to="/Login" className="link text-green-600">Login Now</Link></p>
+                            <p>Already have an account?<Link to="/Login" className="link text-green-600">Login Now</Link></p>
                         </label>
                         {error && <div><p className="text-red-500">{error?.message}</p></div>}
                         <div className="form-control mt-6">
@@ -78,7 +94,7 @@ const Register = () => {
                         </div>
                     </form>
                     <GoogleLogin />
-                    <GithubLogin/>
+                    <GithubLogin />
                 </div>
             </div>
         </div>

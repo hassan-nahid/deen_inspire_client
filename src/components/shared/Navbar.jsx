@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import auth from "../../firebase/firebase.config";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     // const [user] = useAuthState(auth);
@@ -10,7 +11,7 @@ const Navbar = () => {
     const handleLogout = async () => {
         const success = await signOut()
         if (success) {
-            alert("Logout Successful")
+            toast.success("Logout Successful");
         }
     }
 

@@ -4,7 +4,6 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-    // const [user] = useAuthState(auth);
     const [user] = useAuthState(auth);
     const [signOut] = useSignOut(auth);
 

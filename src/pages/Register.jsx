@@ -24,6 +24,7 @@ const Register = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
     const [passMatch, setPassMatch] = useState(false);
 
+    // Register component
     const handleRegister = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -33,7 +34,7 @@ const Register = () => {
 
         if (password === confirm_password) {
             createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
+                .then(async (userCredential) => {
                     if (userCredential) {
                         MySwal.fire({
                             title: 'Registration Successful!',
@@ -41,14 +42,32 @@ const Register = () => {
                             showConfirmButton: false,
                             timer: 1500
                         });
+
+                        const user = {
+                            email: userCredential?.user?.email,
+                            name: userCredential?.user?.displayName || "Anonymous",
+                            uid: userCredential?.user?.uid
+                        };
+
+                        await fetch(`${import.meta.env.VITE_API_URL}/user`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(user),
+                        }).then(res => res.json())
+                        .then(data => {
+                            localStorage.setItem("token", data?.token);
+                        })
                     }
-                })
+                });
         } else {
             setPassMatch(true);
             return;
         }
         setPassMatch(false);
     };
+
 
     useEffect(() => {
         if (user) {

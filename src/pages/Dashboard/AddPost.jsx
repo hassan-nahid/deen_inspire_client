@@ -14,6 +14,7 @@ const AddPost = () => {
     const [picture, setPicture] = useState("");
     const [comments, setComments] = useState([]);
     const [email, setEmail] = useState(user?.email || ""); // Pre-fill with user's email if available
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (user) {
@@ -40,7 +41,8 @@ const AddPost = () => {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(newPost)
             });

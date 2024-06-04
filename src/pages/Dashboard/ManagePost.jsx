@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 const ManagePost = () => {
     const [user] = useAuthState(auth);
     const [posts, setPosts] = useState([]);
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -39,7 +40,10 @@ const ManagePost = () => {
         if (result.isConfirmed) {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers:{
+                        authorization: `Bearer ${token}`,
+                    }
                 });
                 if (response.ok) {
                     setPosts(posts.filter(post => post?._id !== postId));

@@ -17,18 +17,36 @@ const Login = () => {
     const location = useLocation();
     const from = location?.state?.from?.pathname || "/";
 
+    // Login component
     const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
-        signInWithEmailAndPassword(email, password).then((userCredential) => {
+        signInWithEmailAndPassword(email, password).then(async (userCredential) => {
             if (userCredential) {
                 toast.success('Login successful!');
+                const user = {
+                    email: userCredential?.user?.email,
+                    name: userCredential?.user?.displayName || "Anonymous",
+                    uid: userCredential?.user?.uid
+                };
+
+                await fetch(`${import.meta.env.VITE_API_URL}/user`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(user),
+                }).then(res => res.json())
+                .then(data => {
+                    localStorage.setItem("token", data?.token);
+                })
             }
-        })
+        });
     };
+
 
     useEffect(() => {
         if (user) {
@@ -66,7 +84,7 @@ const Login = () => {
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                         </div>
                         <label className="label">
-                           <p>Don&apos;t have account?<Link to="/register" className="link text-green-600">Register Now</Link></p>
+                            <p>Don&apos;t have account?<Link to="/register" className="link text-green-600">Register Now</Link></p>
                         </label>
                         {error && <div><p className="text-red-500">{error?.message}</p></div>}
                         <div className="form-control mt-6">

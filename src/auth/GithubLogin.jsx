@@ -16,6 +16,22 @@ const GithubLogin = () => {
         try {
             await signInWithGithub();
             toast.success("Logged in with GitHub successfully!");
+            const user = {
+                email: auth?.currentUser?.email,
+                name: auth?.currentUser?.displayName,
+                uid: auth?.currentUser?.uid
+            };
+
+            await fetch(`${import.meta.env.VITE_API_URL}/user`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            }).then(res => res.json())
+                .then(data => {
+                    localStorage.setItem("token", data?.token);
+                })
         } catch (error) {
             toast.error("Failed to log in with GitHub");
         }

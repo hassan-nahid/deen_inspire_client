@@ -14,6 +14,7 @@ const EditPost = () => {
     const [tags, setTags] = useState(postData?.tags?.join(", ") || "");
     const [category, setCategory] = useState(postData?.category || "");
     const [picture, setPicture] = useState(postData?.picture || "");
+    const token = localStorage.getItem("token");
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -32,6 +33,7 @@ const EditPost = () => {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(updatedPost),
             });
